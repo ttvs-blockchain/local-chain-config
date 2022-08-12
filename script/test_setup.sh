@@ -10,21 +10,7 @@ rm -rf tmp
 mkdir -p tmp
 cd tmp
 
-echo ${PWD}
-
-echo ${DIR_PATH}
-
-if [ -d "local-chaincode" ]
-then
-    echo "local-chaincode exists"
-    cd local-chaincode
-    git stash
-    git pull --rebase
-else
-    echo "local-chaincode does not exist"
-    git clone https://github.com/ttvs-blockchain/local-chaincode.git
-    cd local-chaincode
-fi
+git clone https://github.com/ttvs-blockchain/local-chaincode.git
 
 cd ${DIR_PATH}/test-network
 bash network.sh down
@@ -39,19 +25,10 @@ export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.examp
 export CORE_PEER_ADDRESS=localhost:7051
 export CORE_CHAINCODE_ID_NAME=basic
 
-cd ${DIR_PATH}/tmp
-if [ -d "local-chain" ]
-then
-    echo "local-chain logic exists"
-    cd local-chaincode
-    git stash
-    git pull --rebase
-else
-    echo "local-chain logic does not exist"
-    git clone https://github.com/ttvs-blockchain/local-chain.git
-    cd local-chain
-fi
+# cd ${DIR_PATH}/tmp
+# git clone https://github.com/ttvs-blockchain/local-chain.git
+# cd local-chain
 
-go build -o local-chain
-chmod +x local-chain
-./local-chain
+# go build -o local-chain
+# chmod +x local-chain
+# ./local-chain
